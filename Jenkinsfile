@@ -3,9 +3,7 @@ pipeline {
     stages {
         stage('added VCS') {
             steps {
-                git credentialsId: 'Git_Credentials',
-                url: 'git@github.com:babu195/new-s3-creation.git',
-                branch: 'main'
+                checkout scm
             }
         }
         stage('AWS') {
