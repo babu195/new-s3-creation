@@ -8,7 +8,7 @@ pipeline {
         }
         stage('AWS') {
             steps {
-                withCredentials([[
+                withcredentials([[
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'awscredentials',
                     accesskeyVariable: 'AWS_ACCESS_KEY_ID',
