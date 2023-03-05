@@ -1,6 +1,12 @@
 pipeline {
     agent any
     stages {
+        stage('added VCS') {
+            steps {
+                git url: 'https://github.com/babu195/s3-Bucket.git',
+                branch: 'main'
+            }
+        }
         stage('AWS') {
             steps {
                 withCredentials([[
@@ -8,12 +14,6 @@ pipeline {
                     credentialsId: 'awscredentials',
                     accesskeyVariable: 'AWS_ACCESS_KEY_ID',
                     secretkeyVariable: 'AWS_SECRET_ACCESS_KEY']])
-            }
-        }
-        stage('added VCS') {
-            steps {
-                git url: 'https://github.com/babu195/s3-Bucket.git',
-                branch: 'main'
             }
         }
         stage('Initiation terraform') {          
