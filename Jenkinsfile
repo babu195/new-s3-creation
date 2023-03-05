@@ -1,6 +1,10 @@
 pipeline {
     agent any
-    stages {
+    environment {
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+    }
+    stages { 
         stage('added VCS') {
             steps {
                 checkout scm
@@ -8,18 +12,23 @@ pipeline {
         }
         stage('Initiation terraform') {          
             steps {
-                sh ('terraform init')
+                sh 'terraform init'
 
             }
         }
         stage('validating Terraform File') {
             steps {
-                sh ('terraform validate')
+                sh 'terraform validate'
+            }
+        }
+                stage('validating Terraform File') {
+            steps {
+                sh 'terraform plan'
             }
         }
         stage('Apply to create bucket') {
             steps {
-                sh ('terraform apply -auto-approve')
+                sh 'terraform apply -auto-approve'
             }
         }
 
